@@ -1,9 +1,11 @@
 package com.mahendhergannarapu.pages.pageObjectModel;
 
+import com.mahendhergannarapu.base.CommonToAllPage;
+import com.mahendhergannarapu.utils.PropertiesReader;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class LoginPage_POM {
+public class LoginPage_POM extends CommonToAllPage {
 
     WebDriver driver;
 
@@ -22,9 +24,13 @@ public class LoginPage_POM {
     //Page Actions
 
     public String loginToVWOInvalidCreds(String user, String pwd) {
-        driver.findElement(username).sendKeys(user);
-        driver.findElement(password).sendKeys(pwd);
-        driver.findElement(signButton).click();
+        driver.get(PropertiesReader.readKey("url"));
+        //driver.findElement(username).sendKeys(user);
+        enterInput(username,user);
+        //driver.findElement(password).sendKeys(pwd);
+        enterInput(password,pwd);
+        //driver.findElement(signButton).click();
+        clickElement(signButton);
 
 
         try {
@@ -37,4 +43,16 @@ public class LoginPage_POM {
         return error_messgae_text;
     }
 
+    public void loginToVWOvalidCreds(String user, String pwd) {
+        driver.get(PropertiesReader.readKey("url"));
+        enterInput(username, user);
+        enterInput(password, pwd);
+        clickElement(signButton);
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
